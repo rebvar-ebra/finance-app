@@ -49,36 +49,36 @@ const monthSchema = new Schema(
 );
 
 const KPISchema = new Schema(
-    {
-      totalProfit: {
-        type: mongoose.Types.Currency,
-        currency: "EUR",
-        get: (v) => v / 100,
-      },
-      totalRevenue: {
-        type: mongoose.Types.Currency,
-        currency: "EUR",
-        get: (v) => v / 100,
-      },
-      totalExpenses: {
-        type: mongoose.Types.Currency,
-        currency: "EUR",
-        get: (v) => v / 100,
-      },
-      expensesByCategory: {
-        type: Map,
-        of: {
-          type: mongoose.Types.Currency,
-          currency: "EUR",
-          get: (v) => v / 100,
-        },
-      },
-      monthlyData: [monthSchema],
-      dailyData: [daySchema],
+  {
+    totalProfit: {
+      type: mongoose.Types.Currency,
+      currency: "EUR",
+      get: (v) => v / 100,
     },
-    { timestamps: true, toJSON: { getters: true } }
-  );
-  
-  const KPI = mongoose.model("KPI", KPISchema);
-  
-  export default KPI;
+    totalRevenue: {
+      type: mongoose.Types.Currency,
+      currency: "EUR",
+      get: (v) => v / 100,
+    },
+    totalExpenses: {
+      type: mongoose.Types.Currency,
+      currency: "EUR",
+      get: (v) => v / 100,
+    },
+    expensesByCategory: {
+      type: Map,
+      of: {
+        type: mongoose.Types.Currency,
+        currency: "EUR",
+        get: (v) => v / 100,
+      },
+    },
+    monthlyData: [monthSchema],
+    dailyData: [daySchema],
+  },
+  { timestamps: true, toJSON: { getters: true } }
+);
+
+const KPI = mongoose.model("KPI", KPISchema);
+
+export default KPI;

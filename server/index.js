@@ -26,9 +26,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 /* Route */
-app.use("/kpi", kpiRoutes);
-app.use("/product", productRoutes);
-app.use("/transaction", transactionRoutes);
+app.use("/kpis", kpiRoutes);
+app.use("/products", productRoutes);
+app.use("/transactions", transactionRoutes);
 
 
 /* mongoose Setup*/
