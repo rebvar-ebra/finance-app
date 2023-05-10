@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 import { loadType } from "mongoose-currency";
 
 const Schema = mongoose.Schema;
@@ -47,6 +47,14 @@ const monthSchema = new Schema(
   },
   { toJSON: { getters: true } }
 );
+const categoryExpenseSchema = new Schema({
+  category: String,
+  expense: {
+    type: mongoose.Types.Currency,
+    currency: "EUR",
+    get: (v) => v / 100,
+  },
+});
 
 const KPISchema = new Schema(
   {
@@ -66,12 +74,7 @@ const KPISchema = new Schema(
       get: (v) => v / 100,
     },
     expensesByCategory: {
-      type: Map,
-      of: {
-        type: mongoose.Types.Currency,
-        currency: "EUR",
-        get: (v) => v / 100,
-      },
+      type: [categoryExpenseSchema],
     },
     monthlyData: [monthSchema],
     dailyData: [daySchema],
