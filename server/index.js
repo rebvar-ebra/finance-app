@@ -10,7 +10,7 @@ import kpiRoutes from "./routes/kpi.js";
 import productRoutes from "./routes/product.js";
 import transactionRoutes from "./routes/transaction.js";
 import KPI from "./models/KPI.js";
-import Product from "./models/Product.js"
+import Product from "./models/Product.js";
 import Transaction from "./models/Transaction.js";
 import { kpis, products, transactions } from "./data/data.js";
 
@@ -30,7 +30,6 @@ app.use("/kpis", kpiRoutes);
 app.use("/products", productRoutes);
 app.use("/transactions", transactionRoutes);
 
-
 /* mongoose Setup*/
 const PORT = process.env.PORT || 9000;
 const connectionString = process.env.MONGODB_URL;
@@ -47,15 +46,19 @@ const client = new MongoClient(connectionString, {
 async function startServer() {
   try {
     await client.connect();
-    console.log('Connected to database');
+    console.log("Connected to database");
 
     const db = client.db();
+    await db.dropDatabase();
+    KPI.insertMany(kpis);
+    Product.insertMany(products);
+    Transaction.insertMany(transactions);
 
     app.listen(PORT, () => {
       console.log(`Server listening on port ${PORT}`);
     });
   } catch (err) {
-    console.error('Error connecting to database:', err.message);
+    console.error("Error connecting to database:", err.message);
   }
 }
 
